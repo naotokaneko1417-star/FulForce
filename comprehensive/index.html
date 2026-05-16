@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>薬剤師キャリア総合診断 | Ful Force</title>
+    <meta name="description" content="91問・7軸・レーダーチャートで、あなたの薬剤師としての本質的なキャリア適性を診断します。" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast"></div>
+
+    <main class="page-shell">
+
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="brand-row">
+          <div class="brand-badge">FF</div>
+          <div>
+            <p class="brand-name">Ful Force（フルフォース）</p>
+            <p class="brand-note">薬剤師特化キャリアコーチング</p>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="hero-chip">Comprehensive Career Diagnosis</p>
+            <h1>薬剤師<br>キャリア<br>総合診断</h1>
+            <p class="hero-sub">7つの軸・91問で、あなたのキャリアの本質的な適性をレーダーチャートで可視化します。</p>
+            <a class="start-btn" href="#diagnosis">診断を開始する →</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat"><span class="hero-stat-num">91</span><span class="hero-stat-label">Questions</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">7</span><span class="hero-stat-label">測定軸</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">15分</span><span class="hero-stat-label">所要時間</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">無料</span></div>
+            <div class="hero-stat wide"><p>「こうあるべき」ではなく「実際の自分」を基準に。直感で選ぶことが大切です。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7軸 -->
+      <section class="card-section" id="axes">
+        <p class="section-chip">7 Measurement Axes</p>
+        <h2>測定する7つの軸</h2>
+        <div class="axis-grid">
+          <div class="axis-item"><span class="axis-num">01</span><span class="axis-name-bold">専門追求</span><span class="axis-vs">↔</span><span class="axis-opp">幅広探求</span></div>
+          <div class="axis-item"><span class="axis-num">02</span><span class="axis-name-bold">対人重視</span><span class="axis-vs">↔</span><span class="axis-opp">業務重視</span></div>
+          <div class="axis-item"><span class="axis-num">03</span><span class="axis-name-bold">変化志向</span><span class="axis-vs">↔</span><span class="axis-opp">安定志向</span></div>
+          <div class="axis-item"><span class="axis-num">04</span><span class="axis-name-bold">自律型</span><span class="axis-vs">↔</span><span class="axis-opp">協調型</span></div>
+          <div class="axis-item"><span class="axis-num">05</span><span class="axis-name-bold">内発動機</span><span class="axis-vs">↔</span><span class="axis-opp">外発動機</span></div>
+          <div class="axis-item"><span class="axis-num">06</span><span class="axis-name-bold">リード型</span><span class="axis-vs">↔</span><span class="axis-opp">サポート型</span></div>
+          <div class="axis-item"><span class="axis-num">07</span><span class="axis-name-bold">計画型</span><span class="axis-vs">↔</span><span class="axis-opp">即興型</span></div>
+        </div>
+      </section>
+
+      <!-- 進捗バー（スティッキー） -->
+      <div class="progress-section" id="progressSection">
+        <div class="progress-row">
+          <span class="progress-label" id="progressText">0 / 91 回答済み</span>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBar" style="width:0%"></div>
+        </div>
+        <div class="milestone-row">
+          <span class="ms-mark" id="ms0">0</span>
+          <span class="ms-mark" id="ms25">25問</span>
+          <span class="ms-mark" id="ms50">50問</span>
+          <span class="ms-mark" id="ms75">75問</span>
+          <span class="ms-mark" id="ms105">完了</span>
+        </div>
+      </div>
+
+      <!-- 診断フォーム -->
+      <div class="quiz-wrap" id="diagnosis">
+        <form id="quizForm" class="quiz-form"></form>
+        <div class="form-actions">
+          <button class="submit-btn" type="button" id="showResultButton">結果を見る →</button>
+          <button class="reset-btn" type="button" id="resetButton">リセット</button>
+        </div>
+        <p class="error-msg" id="errorMessage" role="alert"></p>
+      </div>
+
+      <!-- 結果 -->
+      <section class="result-wrap" id="result" hidden>
+        <div class="result-hero-card">
+          <p class="result-chip">// Your Career Profile</p>
+          <h2 class="result-title" id="resultTitle"></h2>
+          <p class="result-desc" id="resultProfile"></p>
+        </div>
+        <div class="result-body-card" id="resultBody"></div>
+      </section>
+
+      <!-- CTA -->
+      <div class="cta-card" id="ctaSection" hidden>
+        <p class="section-chip">Next Step</p>
+        <h3>この結果を持って、無料面談へ</h3>
+        <p>レーダーチャートを一緒に読み解きながら、あなたのキャリアを逆算設計しましょう。<br>面談は完全無料・勧誘なし。</p>
+        <div class="cta-btns">
+          <a class="timerex-btn" href="https://timerex.net/s/naoto.kaneko1417_aebe/90300f84" target="_blank" rel="noopener">
+            無料キャリア面談を予約
+            <span>Timerexで日程を選ぶ</span>
+          </a>
+          <a class="line-btn" href="https://lin.ee/TiwZWbn" target="_blank" rel="noopener">
+            LINEで相談する
+            <span>気軽にメッセージを送る</span>
+          </a>
+        </div>
+        <p class="cta-note">面談では診断結果をもとに、キャリアの棚卸しから始めます。</p>
+      </div>
+
+      <div class="closing-card">
+        <p>どの軸に強みがあっても優劣ではありません。Ful Forceでは、このレーダーチャートを出発点に、あなたの人生のゴールから逆算したキャリアを一緒に設計します。</p>
+        <p>この診断は、自己理解と思考整理のためのセルフケアコンテンツです。専門的なキャリアアドバイスは面談でご提供します。</p>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
