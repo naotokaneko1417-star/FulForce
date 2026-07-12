@@ -473,11 +473,12 @@ function buildResultContent(scores) {
     const profile = AXIS_PROFILE[r.i];
     const isHigh = r.pct >= 50;
     const dir = isHigh ? profile.high : profile.low;
+    const displayPct = isHigh ? r.pct : 100 - r.pct;
     return `
       <div class="trait-card">
         <div class="trait-header" style="border-left:4px solid ${rankColors[idx]}">
           <span class="trait-rank" style="color:${rankColors[idx]}">${rankLabels[idx]}</span>
-          <span class="trait-axis">${dir.label}（${r.pct}%）</span>
+          <span class="trait-axis">${dir.label}（${displayPct}%）</span>
         </div>
         <p class="trait-title">${dir.title}</p>
         <p class="trait-desc">${dir.desc}</p>
@@ -493,9 +494,10 @@ function buildResultContent(scores) {
     const profile = AXIS_PROFILE[r.i];
     const isHigh = r.pct >= 50;
     const dir = isHigh ? profile.high : profile.low;
+    const displayPct = isHigh ? r.pct : 100 - r.pct;
     return `
       <div class="complement-row">
-        <div class="complement-label">${dir.label}（${r.pct}%）</div>
+        <div class="complement-label">${dir.label}（${displayPct}%）</div>
         <div class="complement-caution">${dir.caution}</div>
       </div>`;
   }).join("");
@@ -598,14 +600,16 @@ function showResult() {
   // スコアバー
   const barHTML = AXES.map((axis, i) => {
     const pct = Math.round(scores[i] / MAX * 100);
+    const isHigh = pct >= 50;
+    const displayPct = isHigh ? pct : 100 - pct;
     const isTop = i === top.i;
     return `
       <div class="bar-row${isTop ? " bar-top" : ""}">
-        <span class="bar-name">${pct >= 50 ? axis.name : axis.opposite}</span>
+        <span class="bar-name">${isHigh ? axis.name : axis.opposite}</span>
         <div class="bar-track">
-          <div class="bar-fill" style="width:${pct}%"></div>
+          <div class="bar-fill" style="width:${displayPct}%"></div>
         </div>
-        <span class="bar-score">${pct}%</span>
+        <span class="bar-score">${displayPct}%</span>
       </div>`;
   }).join("");
 
@@ -680,9 +684,15 @@ function drawRadar(canvas, scores) {
     ctx.stroke();
   });
 
+  // 各軸は「優勢な側（AかBか）にどれだけ強く傾いているか」を半径にする。
+  // rawRatio(A側の強さ)が0.5未満＝B優勢の場合は (1 - rawRatio) を使う。
+  const displayRatios = scores.map(s => {
+    const rawRatio = s / MAX;
+    return rawRatio >= 0.5 ? rawRatio : 1 - rawRatio;
+  });
+
   ctx.beginPath();
-  scores.forEach((s, i) => {
-    const ratio = s / MAX;
+  displayRatios.forEach((ratio, i) => {
     const x = cx + maxR * ratio * Math.cos(angles[i]);
     const y = cy + maxR * ratio * Math.sin(angles[i]);
     i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
@@ -697,8 +707,7 @@ function drawRadar(canvas, scores) {
   ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  scores.forEach((s, i) => {
-    const ratio = s / MAX;
+  displayRatios.forEach((ratio, i) => {
     const x = cx + maxR * ratio * Math.cos(angles[i]);
     const y = cy + maxR * ratio * Math.sin(angles[i]);
     ctx.beginPath();
@@ -717,8 +726,9 @@ function drawRadar(canvas, scores) {
   AXES.forEach((axis, i) => {
     const x = cx + labelR * Math.cos(angles[i]);
     const y = cy + labelR * Math.sin(angles[i]);
+    const rawRatio = scores[i] / MAX;
     ctx.fillStyle = "#0d1b2a";
-    ctx.fillText(axis.name, x, y);
+    ctx.fillText(rawRatio >= 0.5 ? axis.name : axis.opposite, x, y);
   });
 }
 

@@ -548,7 +548,7 @@ h3 { margin: 0 0 10px; font-size: 17px; font-weight: 700; }
 }
 .cta-card h3 { font-size: 20px; margin: 12px 0 8px; }
 .cta-card p { color: var(--muted); font-size: 14px; margin: 0 0 24px; line-height: 1.8; }
-.cta-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; margin: 0 auto; }
+.cta-btns { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 360px; margin: 0 auto; }
 .timerex-btn {
   display: inline-flex;
   flex-direction: column;
